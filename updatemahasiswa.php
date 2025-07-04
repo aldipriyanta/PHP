@@ -13,12 +13,23 @@
             SET NamaLengkap = '$nama', KotaAsal = '$kota'
             WHERE NIM = '$id'";
 
-        if (mysqli_query($conn, $sql)) {
-            echo("Update Data Berhasil");
+if (mysqli_query($conn, $sql)) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Data berhasil diupdate'
+            ]);
         } else {
-            echo ("Error: " . $sql . "<br>" . mysqli_error($conn));
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Error: ' . mysqli_error($conn)
+            ]);
         }
+    } else {
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Data input tidak lengkap'
+        ]);
     }
 
-    mysqli_close($conn);
+mysqli_close($conn);
 ?>
